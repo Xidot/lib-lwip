@@ -365,4 +365,14 @@ config LWIP_SERVICE_DEBUG
 		Enables ETHARP_DEBUG, DNS_DEBUG, AUTOIP_DEBUG, DHCP_DEBUG,
 		ICMP_DEBUG, SNMP_DEBUG, SNMP_MSG_DEBUG, SNMP_MIB_DEBUG
 endif
+
+config LIBLWIP_TESTS
+    bool "Enable uktests for lwip"
+    default n
+    if LIBLWIP_TESTS
+        config DEF_TEST
+            bool "Def tests"
+            default n
+    endif
+
 endif

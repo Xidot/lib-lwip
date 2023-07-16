@@ -156,3 +156,29 @@ LIBLWIP_SRCS-$(CONFIG_LWIP_IPV6) += $(LIBLWIP_EXTRACTED)/core/ipv6/ip6_addr.c
 LIBLWIP_SRCS-$(CONFIG_LWIP_IPV6) += $(LIBLWIP_EXTRACTED)/core/ipv6/ip6_frag.c
 LIBLWIP_SRCS-$(CONFIG_LWIP_IPV6) += $(LIBLWIP_EXTRACTED)/core/ipv6/mld6.c
 LIBLWIP_SRCS-$(CONFIG_LWIP_IPV6) += $(LIBLWIP_EXTRACTED)/core/ipv6/nd6.c
+
+################################################################################
+# lwip tests
+################################################################################
+
+# lwip tests integration with small adaptations for unikraft.
+ifneq ($(filter y, $(CONFIG_LIBLWIP_TESTS) $(CONFIG_LIBUKTEST_ALL)),)
+
+CINCLUDES-y += -I$(LIBLWIP_BASE)/../test/unit/lwip_check.h
+
+ifneq ($(filter y, $(CONFIG_DEF_TEST) $(CONFIG_LIBUKTEST_ALL)),)
+LIBLWIP_SRCS-y += $(LIBLWIP_BASE)/test/unit/lwip_unittests.c
+LIBLWIP_SRCS-y += $(LIBLWIP_BASE)/test/unit/core/test_def.c
+endif
+
+# ifneq ($(filter y, $(CONFIG_DEF_TEST) $(CONFIG_LIBUKTEST_ALL)),)
+# LIBLWIP_SRCS-y += $(LIBLWIP_BASE)/test/unit/lwip_unittests.c
+# LIBLWIP_SRCS-y += $(LIBLWIP_BASE)/test/unit/core/test_def.c
+# endif
+# 
+# ifneq ($(filter y, $(CONFIG_DEF_TEST) $(CONFIG_LIBUKTEST_ALL)),)
+# LIBLWIP_SRCS-y += $(LIBLWIP_BASE)/test/unit/lwip_unittests.c
+# LIBLWIP_SRCS-y += $(LIBLWIP_BASE)/test/unit/core/test_def.c
+# endif
+
+endif
